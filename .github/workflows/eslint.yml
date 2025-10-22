@@ -1,0 +1,26 @@
+name: ESLint
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: |
+          cd web
+          npm ci
+
+      - name: Run ESLint
+        run: |
+          cd web
+          npx eslint . --max-warnings=0
